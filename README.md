@@ -1,4 +1,4 @@
-0x19. C - Stacks, Queues - LIFO, FIFO project done by Emmanuel Ugochukwu and Annacolleta Mtetwa
+0x19. C - Stacks, Queues - LIFO, FIFO project done by Emmanuel Nwafor and Annacolleta Mtetwa
 
 Tasks
 0. push, pall
