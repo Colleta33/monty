@@ -1,87 +1,43 @@
 #include "monty.h"
 
-instruction_t instructions[] = {
-    {"push", },
-    {"pall", },
-    {NULL, NULL}
-};
 /**
- *main - Entry point
- *@agv: argument count
- *@argv: argument vector
- *Return: exit status
+ * main ->
  */
-int main(int argc, char* argv[])
+
+int main(int argc, char *argv[])
 {
-	const char* filename = argv[1];
+	char* filepath = argv[1];
+	char *line = NULL;
+	void *pointer = malloc(1);
+	FILE *file = fopen(filepath, "r");
+	int line_number = 1;
 
-    if (argc != 2)
-    {
-        printf("USAGE: monty file\n");
-        return (EXIT_FAILURE);
-    }
+	if (argc != 2)
+	{
+		fprintf(stderr, "Usage: monty file\n");
+		exit (EXIT_FAILURE);
+	}
+	/* open file for reading*/
+	if (file == NULL)
+		{
+			fprintf(stderr, "Error: can't open file %s\n", filepath);
+			exit (EXIT_FAILURE);
+		}
 
-      process_file(filename);
+	while (fgets(line, sizeof(line), file) != NULL)
+	{
+		fprintf(stderr, "L<line_number>: unknown instruction <opcode>%d\n", line_number);
+		exit (EXIT_FAILURE);
+		line_number++;
+	}
+	fclose(file);
 
-    return (EXIT_SUCCESS);
+	if (pointer == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit (EXIT_FAILURE);
+	}
+	free(pointer);
+	return (0);
 }
-void free_stack(stack_t** stack)
-{
-    stack_t* current = *stack;
-    while (current != NULL)
-    {
-        stack_t* temp = current;
-        current = current->next;
-        free(temp);
-    }
 
-    *stack = NULL;
-}
-void process_file(const char* filename)
-{
-       	unsigned int line_number = 0;
-	char* opcode = strtok(line, " \t\n");
-	char line[1024];
-	 int found = 0;
-
-    FILE* file = fopen(filename, "r");
-    if (file == NULL)
-    {
-        printf("Error: Can't open file %s\n", filename);
-        exit(EXIT_FAILURE);
-    }
-
-      
-
-    while (fgets(line, sizeof(line), file) != NULL)
-    {
-        line_number++;
-
-        
-        if (opcode == NULL || opcode[0] == '#')
-            continue;
-
-        while 
-
-        (int i = 0; instructions[i].opcode != NULL; i++)
-        {
-            if (strcmp(opcode, instructions[i].opcode) == 0)
-            {
-                instructions[i].f(&stack_t, line_number);
-                found = 1;
-                break;
-            }
-        }
-
-        if (!found)
-        {
-            printf("L%d: unknown instruction %s\n", line_number, opcode);
-            free_stack(&stack);
-            fclose(file);
-            exit(EXIT_FAILURE);
-        }
-    }
-
-    free_stack(&stack);
-    fclose(file);
-}
