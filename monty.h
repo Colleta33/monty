@@ -1,5 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H 
+#define MAX 3
 
 #include <stdio.h>
 #include <stdlib.h>
